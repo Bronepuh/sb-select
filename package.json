@@ -6,11 +6,15 @@
   "scripts": {
     "local:build": "yarn build:client && yarn build:server",
     "local:up": "concurrently -k -n SERVER,CLIENT \"ts-node-dev --project tsconfig.server.json --respawn --transpile-only server/index.ts\" \"webpack serve --mode development --port 3005\"",
-    "prod:build": "yarn build:client && yarn build:server",
-    "prod:up": "pm2 reload sb-select || pm2 start ecosystem.config.cjs",
     "build:client": "webpack --mode production",
     "build:server": "tsc -p tsconfig.server.json",
-    "lint": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.server.json --noEmit"
+    "lint": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.server.json --noEmit",
+    "prod:build": "yarn build:client && yarn build:server && bash -lc 'sudo mkdir -p /srv/www/sbertest && sudo rsync -av --delete dist/ /srv/www/sbertest/'",
+    "prod:up": "yarn dlx pm2 start ecosystem.config.cjs || yarn dlx pm2 reload sb-select",
+    "prod:logs": "yarn dlx pm2 logs sb-select",
+    "prod:status": "yarn dlx pm2 status",
+    "prod:stop": "yarn dlx pm2 stop sb-select || true",
+    "prod:delete": "yarn dlx pm2 delete sb-select || true"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.0",
