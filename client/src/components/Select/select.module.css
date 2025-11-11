@@ -1,0 +1,114 @@
+.wrapper {
+  position: relative;
+  display: inline-block;
+  font: inherit;
+}
+
+/* Верхний блок селекта */
+.control {
+  display: flex;
+  align-items: center;
+  height: 36px; /* высота как у кнопки */
+  padding: 0 8px;
+  border: 1px solid #f0f0f0; /* ТЗ: 1px, f0f0f0 */
+  border-radius: 3px;
+  background: #fff;
+  outline: none;
+}
+
+/* при открытии/hover/focus — нижняя граница 2px #0066cc */
+.controlActive {
+  border-bottom-width: 2px;
+  border-bottom-color: #0066cc;
+}
+
+/* Поле ввода без видимых рамок */
+.input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: none;
+  outline: none;
+  font: inherit;
+  color: #000;
+  background: transparent;
+}
+
+/* Крестик — по умолчанию скрыт визуально и некликабелен */
+.clear {
+  user-select: none;
+  width: 16px;
+  height: 16px;
+  margin-left: 6px;
+  text-align: center;
+  line-height: 16px;
+  font-weight: 700;
+  font-size: 14px;
+  color: #666;
+  cursor: pointer;
+  display: inline-block;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.12s ease;
+}
+
+/* Показать «x», только когда есть выбранная опция И курсор над контролом.
+   Никаких стейтов — читаем data-атрибут на корне. */
+.wrapper[data-has-selected='true'] .control:hover .clear {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Треугольник-стрелка справа */
+.caret {
+  width: 0;
+  height: 0;
+  margin-left: 6px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid #666;
+  cursor: pointer;
+}
+
+/* Дропдаун */
+.dropdown {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: #fff;
+  border: 1px solid #f0f0f0;
+  max-height: 250px; /* ТЗ: не более 250px */
+  overflow: auto;
+  will-change: transform;
+}
+.dropDown {
+  top: calc(100% + 4px);
+}
+.dropUp {
+  bottom: calc(100% + 4px);
+}
+
+/* Пункты */
+.option {
+  padding: 8px;
+  background: #fff; /* ТЗ: белый фон */
+  color: #000; /* ТЗ: чёрный текст */
+}
+/* ТЗ: «на которую навели курсор мыши» — f0f0f0 */
+.option:hover {
+  background: #f0f0f0;
+}
+/* ТЗ: «переместились стрелками» — e8e8e8 */
+.optActive {
+  background: #e8e8e8;
+}
+/* ТЗ: «текущая выбранная» — dedede */
+.optSelected {
+  background: #dedede;
+}
+
+.empty {
+  padding: 8px;
+  color: #000;
+}

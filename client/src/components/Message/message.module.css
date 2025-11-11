@@ -1,0 +1,6 @@
+/* client/src/components/Message/Message.module.css */
+.message {
+  margin-top: 12px;
+  color: #000;
+  font: inherit;
+}

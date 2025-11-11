@@ -1,0 +1,92 @@
+:root {
+  --gap: 24px;
+  --card-radius: 12px;
+  --card-border: #e9e9e9;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  --bg: #fafafa;
+  --text: #111;
+}
+
+/* холст */
+.container {
+  height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.45 system-ui, -apple-system, 'Segoe UI', Roboto, Arial,
+    sans-serif;
+  overflow: hidden;
+}
+
+/* селекты по углам — действительно у краёв */
+.corner {
+  position: fixed;
+  z-index: 1;
+}
+.tl {
+  top: var(--gap);
+  left: var(--gap);
+}
+.tr {
+  top: var(--gap);
+  right: var(--gap);
+}
+.bl {
+  bottom: var(--gap);
+  left: var(--gap);
+}
+.br {
+  bottom: var(--gap);
+  right: var(--gap);
+}
+
+/* центральная карточка */
+.center {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none; /* чтобы клики шли только по содержимому */
+}
+
+.panel {
+  pointer-events: auto;
+  width: min(680px, calc(100vw - 2 * var(--gap)));
+  background: #fff;
+  border: 1px solid var(--card-border);
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+}
+
+.h1 {
+  font-weight: 600;
+  font-size: 16px;
+  margin: 0 0 12px;
+}
+
+.hr {
+  margin: 12px 0;
+  height: 1px;
+  background: #f3f3f3;
+  border: 0;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border: 1px solid #eaeaea;
+  border-radius: 999px;
+  font-size: 12px;
+  background: #fff;
+}
+
+.message {
+  margin-top: 12px;
+}
