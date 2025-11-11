@@ -5,6 +5,8 @@
   --shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
   --bg: #fafafa;
   --text: #111;
+
+  --select-width: 250px;
 }
 
 /* холст */
@@ -15,60 +17,33 @@
   font: 14px/1.45 system-ui, -apple-system, 'Segoe UI', Roboto, Arial,
     sans-serif;
   overflow: hidden;
+  position: relative;
 }
 
-/* селекты по углам — действительно у краёв */
-.corner {
-  position: fixed;
-  z-index: 1;
+/* верхняя панель */
+.topbar {
+  position: sticky; /* не фиксируем к вьюпорту — липнет к верху, естественная высота */
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  padding: var(--gap) var(--gap) 0;
+  background: linear-gradient(#fafafa, #fafafa 80%, transparent);
 }
-.tl {
-  top: var(--gap);
-  left: var(--gap);
-}
-.tr {
-  top: var(--gap);
-  right: var(--gap);
-}
-.bl {
-  bottom: var(--gap);
-  left: var(--gap);
-}
-.br {
-  bottom: var(--gap);
-  right: var(--gap);
-}
-
-/* центральная карточка */
-.center {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  pointer-events: none; /* чтобы клики шли только по содержимому */
-}
-
-.panel {
-  pointer-events: auto;
-  width: min(680px, calc(100vw - 2 * var(--gap)));
+.toolbar {
+  width: min(960px, 100%);
   background: #fff;
   border: 1px solid var(--card-border);
   border-radius: var(--card-radius);
   box-shadow: var(--shadow);
-  padding: 20px;
+  padding: 14px;
 }
-
-.h1 {
-  font-weight: 600;
-  font-size: 16px;
-  margin: 0 0 12px;
+.statusLine {
+  margin-top: 8px;
 }
-
-.hr {
-  margin: 12px 0;
-  height: 1px;
-  background: #f3f3f3;
-  border: 0;
+.status {
+  font-size: 12px;
+  color: #555;
 }
 
 .row {
@@ -77,16 +52,64 @@
   gap: 12px;
   align-items: center;
 }
-
 .badge {
   display: inline-block;
   padding: 2px 8px;
+  margin-bottom: 5px;
   border: 1px solid #eaeaea;
   border-radius: 999px;
   font-size: 12px;
   background: #fff;
 }
 
+/* кейс-карточка: Select + кнопки + сообщения */
+.case {
+  position: fixed;
+  z-index: 5;
+  width: calc(var(--select-width) + 12px + 160px); /* селект + блок кнопок */
+  max-width: min(440px, calc(100vw - 2 * var(--gap)));
+  background: #fff;
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  padding: 12px;
+}
+
+.caseTitle {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+/* строка: селект и кнопки в ряд */
+.inline {
+  display: grid;
+  grid-template-columns: var(--select-width) 1fr;
+  align-items: stretch;
+  gap: 12px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: stretch;
+}
+
 .message {
-  margin-top: 12px;
+  margin-top: 10px;
+  display: grid;
+  gap: 6px; /* несколько сообщений одно под другим */
+}
+
+/* Адаптивность: узкие экраны — складываем кейсы вертикально, чтобы ничего не перекрывалось */
+@media (max-width: 900px) {
+  .container {
+    overflow: auto;
+  }
+  .case {
+    position: static;
+    width: auto;
+    margin: 12px var(--gap);
+  }
 }

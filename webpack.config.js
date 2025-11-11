@@ -1,9 +1,10 @@
-// webpack.config.js
-import path from 'path';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
+// webpack.config.js  (CommonJS версия)
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 /** @type {import('webpack').Configuration} */
-export default {
+module.exports = {
   entry: path.resolve('client/src/index.tsx'),
   output: {
     path: path.resolve('dist'),
@@ -58,10 +59,18 @@ export default {
     client: { overlay: true },
     open: ['/sbertest/'],
   },
+
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve('client/public/index.html'),
+      publicPath: '/sbertest/',
+    }),
+    new webpack.DefinePlugin({
+      'process.env.API_BASE': JSON.stringify(
+        process.env.NODE_ENV === 'production' ? '/sbertest-api' : ''
+      ),
     }),
   ],
+
   performance: { hints: false },
 };
