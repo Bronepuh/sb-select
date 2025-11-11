@@ -2,7 +2,6 @@
   "name": "sb-select",
   "private": true,
   "version": "1.0.0",
-  "type": "module",
   "scripts": {
     "local:build": "yarn build:client && yarn build:server",
     "local:up": "concurrently -k -n SERVER,CLIENT \"ts-node-dev --project tsconfig.server.json --respawn --transpile-only server/index.ts\" \"webpack serve --mode development --port 3005\"",
